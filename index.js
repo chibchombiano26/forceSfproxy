@@ -29,6 +29,20 @@ app.post('/identity', async (req, res) => {
     }
 })
 
+app.post('/logout', async (req, res) => {
+    try {
+        const con = getConn(
+            req.body.accessToken,
+            req.body.instanceUrl
+        );
+        const response = await con.logout()
+        res.send(JSON.stringify(response))
+    }
+    catch (err) {
+        res.send(err)
+    }
+})
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
